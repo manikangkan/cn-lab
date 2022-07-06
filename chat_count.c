@@ -1,20 +1,45 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
-{
-    char str[100];
-    int i, totalChar;
-    totalChar=0;
-    printf("Please enter the string for count words\n");
-    gets(str);
+int main(){
+    char data[50], stuff[50], dstuff[50];
+    int i, j, fsize, noofframes, tframe, dsize, s;
 
-    for(i=0; str[i] != '\0'; i++){
-        if(str[i]!=' '){
-            totalChar++;
+    printf("Enter data \n");
+    scanf("%s", data);
+
+    dsize = strlen(data);
+
+    printf("enter fsize \n");
+    scanf("%d", &fsize);
+    s = fsize;
+
+    tframe = fsize - 1;
+
+    noofframes = (dsize / tframe)+1;
+    j = 0;
+    for(i = 0; i<(dsize+noofframes); i++){
+        if(i%fsize == 0){
+            if((dsize-j)<fsize){
+                fsize=dsize-j+1;
+            }
+            stuff[i] = (char)(48+fsize);
+            fsize = s;
+        }
+        else{
+            stuff[i] = data[j];
+            j++;
         }
     }
-    printf("The total characters of the given string= %d",totalChar);
-    getch();
+    stuff[dsize+noofframes]='\0';
+    printf("Stuffed data is %s\n", stuff);
+    j = 0;
+    for(i = 0; i<(dsize+noofframes);i++){
+        if(i%fsize!=0){
+            dstuff[j] = stuff[i];
+            j++;
+        }
+    }
+    printf("\nDstuffed data is %s\n", dstuff);
     return 0;
 }
